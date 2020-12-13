@@ -7,6 +7,9 @@
 */
 
 const names = ['Caio', 'André', 'Dário']
+const nomes = names.map(nome => nome).sort()
+
+console.log(nomes)
 
 /*
   02
@@ -23,6 +26,12 @@ const characters = [
   { id: 04, name: 'Mufasa' }
 ]
 
+const lionKing = characters.map(item => {
+  return { id: item.id, name: item.name }
+}).sort((nome1, nome2) => nome1.id - nome2.id)
+
+console.log(lionKing)
+
 /*
   03
 
@@ -33,6 +42,11 @@ const characters = [
 
 const numbers = [41, 15, 63, 349, 25, 22, 143, 64, 59, 291]
 
+const numeros = numbers.map(num => num)
+  .sort((num1, num2) => num1 - num2)
+
+console.log(numeros)
+
 /*
   04
 
@@ -40,6 +54,10 @@ const numbers = [41, 15, 63, 349, 25, 22, 143, 64, 59, 291]
 */
 
 const randomNumbers = [10, 5, 0, 40, 60, 10, 20, 70]
+
+const num50 = randomNumbers.find(number => number > 50)
+
+console.log(num50)
 
 /*
   05
@@ -50,6 +68,9 @@ const randomNumbers = [10, 5, 0, 40, 60, 10, 20, 70]
 */
 
 const people = ['Cauã', 'Alfredo', 'Bruno']
+const pessoas = people.map(nome => nome).sort().reverse()
+  
+console.log(pessoas)
 
 /*
   06
@@ -60,6 +81,23 @@ const people = ['Cauã', 'Alfredo', 'Bruno']
 */
 
 const ingredients = ['vinho', 'tomate', 'cebola', 'cogumelo']
+
+const cozido = ingredients
+  .reduce((mensagem, item, indice, array) => {
+    //const ultLetra = item[item.length - 1]
+    //ultLetra == 'a' ? ...
+    const terminaComA = /a$/.test(item)
+    
+    terminaComA 
+      ? mensagem += `${item} cozida`
+      : mensagem += `${item} cozido`
+
+    if (indice < array.length - 1)
+      mensagem += ', '
+    return mensagem
+  }, '')
+
+console.log(cozido)
 
 /*
   07
@@ -81,6 +119,12 @@ const topBrazilmovies = [
   { title: 'Dona Flor e Seus Dois Maridos', peopleAmount: 10735524, distributedBy: 'Embrafilme' }
 ]
 
+const disney = topBrazilmovies
+  .filter(movie => movie.distributedBy === 'Disney')
+  .reduce((total, item) => total + item.peopleAmount, 0)
+
+console.log(disney)
+
 /*
   08
   
@@ -101,12 +145,34 @@ const pets = [
   { name: 'Chico', age: 6, gender: 'Male', type: 'Dog' }
 ]
 
+const dogs = pets
+  .filter(pet => pet.type === 'Dog')
+  .map(({ name, age, gender }) => {
+    return { name, age: age * 7, gender }
+  })
+
+console.log(dogs)
+
 /*
   09
   
   - Considerando o array topBrazilmovies, através do map ou do reduce, insira 
     os nomes dos filmes na ul do index.html.
 */
+
+const ul = document.querySelector('.list-group')
+
+const filmes = topBrazilmovies
+  .map(item => `<li>${ item.title }</li>`)
+  .join(`\n`)
+
+/*
+const filmes = topBrazilmovies.reduce((li, { title }) => {
+  return `${ li }<li>${ title }</li>\n`
+}, '')
+*/
+
+ul.innerHTML = filmes
 
 /*
   10
@@ -118,3 +184,4 @@ const pets = [
     - Se isso está acontecendo, proponha uma solução para que o 2º submit não 
       considere a pontuação do envio anterior.
 */
+

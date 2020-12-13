@@ -20,6 +20,10 @@ const months = [
   'Dezembro'
 ]
 
+//const fev = months.findIndex(mes => mes === 'Fevereiro')
+const fev = months.indexOf('Fevereiro')
+console.log('Fevereiro', fev)
+
 /*
   02
 
@@ -27,11 +31,16 @@ const months = [
   - Exiba o objeto no console.
 */
 
+const hoje = new Date()
+console.log(hoje)
+
 /*
   03
 
   - Baseado no objeto que você acabou de criar, exiba o ano atual no console.
 */
+
+console.log('Ano', hoje.getFullYear())
 
 /*
   04
@@ -40,11 +49,16 @@ const months = [
   - Exiba o objeto no console.
 */
 
+const birth = new Date('June 14 1973 11:30')
+console.log(birth)
+
 /*
   05
 
   - Exiba, no console, a hora do objeto que você acabou de criar.
 */
+
+console.log(birth.getHours())
 
 /*
   06
@@ -53,11 +67,18 @@ const months = [
   - Exiba o objeto no console.
 */
 
+const future = new Date('January 1 2030 12:30')
+console.log(future)
+
 /*
   07
 
   - Exiba no console a quantidade de dias entre o momento futuro e o passado.
 */
+
+const diff = future.getTime() - birth.getTime()
+const dias = Math.round(diff / 1000 / 60 / 60 / 24)
+console.log(dias)
 
 /*
   08
@@ -75,3 +96,4 @@ const months = [
   aplicação do Quiz: 
   https://www.youtube.com/playlist?list=PLlAbYrWSYTiMGMxQf9JSoZUU1rgVpGPth
 */
+

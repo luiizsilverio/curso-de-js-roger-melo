@@ -6,6 +6,28 @@
   - Não utilize a date-fns.
 */
 
+const strZero = (number, size) => {
+  let saida = number.toString()
+  let qt0 = size - saida.length
+  for (let i = 0; i < qt0; i++) {
+    saida = `0${saida}`
+  }
+  return saida
+}
+
+const formatDate = date => {
+   const dia = date.getDate()
+   const mes = date.getMonth() + 1
+   const ano = date.getFullYear()
+   return strZero(dia,2) +'/'+ strZero(mes,2) +'/'+ ano
+}
+
+const vdata = new Date('June 14 1973 11:30')
+console.log(formatDate(vdata))
+console.log('dateFns.format:', dateFns.format(vdata, 'DD/MM/YYYY'))
+console.log('dateFns.isToday:', dateFns.isToday(vdata))
+console.log('dateFns.parse:', dateFns.parse('1973-06-14T23:30:00'))
+
 /*
   02
 
@@ -13,6 +35,37 @@
     data na formatação: "03:07 - domingo, 7 de junho de 2020";
   - Não utilize a date-fns.
 */
+
+const meses = [
+  'Janeiro', 
+  'Fevereiro', 
+  'Março', 
+  'Abril', 
+  'Maio',
+  'Junho',
+  'Julho', 
+  'Agosto', 
+  'Setembro', 
+  'Outubro', 
+  'Novembro', 
+  'Dezembro'
+]
+
+const diaSem = ['Domingo', 'Segunda', 'Terça', 'Quarta', 'Quinta', 'Sexta', 'Sábado']              
+  
+const dataHora = (date) => {
+  
+  const dia = date.getDate()
+  const mes = date.getMonth()
+  const ano = date.getFullYear()
+  const hora = date.getHours()
+  const min = date.getMinutes()
+  const diaS = date.getDay()
+
+  return `${strZero(hora,2)}:${strZero(min,2)} - ${diaSem[diaS]},  ${dia} de ${meses[mes]} de ${ano}`
+}
+
+console.log(dataHora(vdata))
 
 /*
   03
@@ -23,6 +76,9 @@
 */
 
 const user = { id: 42, isVerified: true }
+const { id, isVerified } = user
+
+console.log(id, isVerified)
 
 /*
   04
@@ -37,6 +93,11 @@ const user = { id: 42, isVerified: true }
 const robotA = { name: 'Bender' }
 const robotB = { name: 'HAL 9000' }
 
+const { name: nameA } = robotA
+const { name: nameB } = robotB
+
+console.log(nameA, nameB)
+
 /*
   05
 
@@ -49,6 +110,8 @@ const robotB = { name: 'HAL 9000' }
 const a = 'a'
 const b = 'b'
 const c = 'c'
+const abc = { a, b, c }
+console.log(abc)
 
 /*
   06
@@ -61,19 +124,26 @@ const useDataSomewhereElse = value => {
 }
 
 const updateSomething = (data = {}) => {
-  const target = data.target
-  const property = data.property
-  let willChange = data.willChange
+    /*
+      const target = data.target
+      const property = data.property
+      let willChange = data.willChange
+    */
+
+  let { target, property, willChange } = data
 
   if (willChange === 'valor indesejado') {
     willChange = 'valor desejado'
   }
 
-  useDataSomewhereElse({
-    target: target,
-    property: property,
-    willChange: willChange
-  })
+  useDataSomewhereElse({ target, property, willChange })    
+    /*
+      useDataSomewhereElse({ target, property, willChange })
+        target: target,
+        property: property,
+        willChange: willChange
+      })
+    */
 }
 
 updateSomething({ target: '1', property: '2', willChange: 'valor indesejado' })
@@ -87,19 +157,18 @@ updateSomething({ target: '1', property: '2', willChange: 'valor indesejado' })
 
 const clockContainer = document.querySelector('.clock-container')
 
+const getClockHTML = (hours, minutes, seconds) => `
+  <span>${String(hours).length === 1 ? `0${hours}` : hours}</span> :
+  <span>${String(minutes).length === 1 ? `0${minutes}` : minutes}</span> :
+  <span>${String(seconds).length === 1 ? `0${seconds}` : seconds}</span>
+`
 const updateClock = () => {
   const present = new Date()
   const hours = present.getHours()
   const minutes = present.getMinutes()
   const seconds = present.getSeconds()
 
-  const clockHTML = `
-    <span>${String(hours).length === 1 ? `0${hours}` : hours}</span> :
-    <span>${String(minutes).length === 1 ? `0${minutes}` : minutes}</span> :
-    <span>${String(seconds).length === 1 ? `0${seconds}` : seconds}</span>
-  `
-
-  clockContainer.innerHTML = clockHTML
+  clockContainer.innerHTML = getClockHTML(hours, minutes, seconds)
 }
 
 setInterval(updateClock, 1000)

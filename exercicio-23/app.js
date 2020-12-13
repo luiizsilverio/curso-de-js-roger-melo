@@ -7,6 +7,8 @@
 
 const myString = '    JS      '
 
+console.log(myString.trim())
+
 /*
   02
 
@@ -23,6 +25,14 @@ const people = [
   { firstName: 'Eric', lastName: 'Silva', score: 82 }
 ]
 
+const people2 = people
+  .map(({ firstName, lastName, score }) => {
+    return { firstName, lastName, score }
+  })
+  .sort((a, b) => a.score - b.score)
+
+console.log(people2)
+
 /*
   03
 
@@ -35,6 +45,10 @@ const people = [
 
 const animals = ['cão', 'gato', 'boi', 'leão', 'gnu', 'alce', 'ema']
 
+const animals2 = animals.filter(animal => animal.length === 3)
+
+console.log(animals2)
+
 /*
   04
 
@@ -42,7 +56,9 @@ const animals = ['cão', 'gato', 'boi', 'leão', 'gnu', 'alce', 'ema']
     nome de cada animal. Ex.: [6, 8, 2].
 */
 
+const letras = animals.map(item => item.length)
 
+console.log(letras)
 
 /*
   05
@@ -60,7 +76,11 @@ const friends = [
   { id: 5, name: 'Solange', nearMe: false }
 ]
 
+const amigos = friends
+  .filter(amigo => amigo.nearMe)
+  .map(amigo => amigo.name)
 
+console.log(amigos)
 
 /*
   06
@@ -70,6 +90,12 @@ const friends = [
 */
 
 const numbers = [46, 86, 212, 29, 51, 9, 25, 42, 81]
+
+const impares = numbers
+  .filter(number => number % 2)
+  .reduce((soma, number) => soma + number, 0)
+
+console.log(impares)
 
 /*
   07
@@ -91,3 +117,11 @@ const data = [{
   country: 'Indonesia',
   population: 263991379
 }]
+
+const populacao = data
+  .filter(pais => pais.country != 'China')
+  .reduce((soma, { population }) => {
+    return soma + population    
+  }, 0)
+
+console.log(populacao)

@@ -9,7 +9,11 @@ console.log('Linha 2')
 console.log('Linha 3')
 console.log('Linha 4')
 
+console.time('callback')
 
+setTimeout(() => {
+  console.timeEnd('callback')
+}, 1000)
 
 console.log('Linha 5')
 console.log('Linha 6')
@@ -27,7 +31,11 @@ function logGreeting (name) {
   console.log(`olá, ${name}`)
 }
 
-// x(logGreeting)
+const x = callback => {
+  callback('Luiz')
+}
+
+x(logGreeting)
 
 /*
   03
@@ -36,7 +44,8 @@ function logGreeting (name) {
 */
 
 const numbers = [3, 4, 10, 20]
-const lesserThanFive = numbers.filter(num => num < 5)
+const getLesserThanFive = num => num < 5
+const lesserThanFive = numbers.filter(getLesserThanFive)
 
 console.log(lesserThanFive)
 
@@ -47,11 +56,15 @@ console.log(lesserThanFive)
 */
 
 const prices = [12, 19, 7, 209]
-let totalPrice = 0
 
+/*
+let totalPrice = 0
 for (let i = 0; i < prices.length; i++) {
   totalPrice += prices[i]
 }
+*/
+
+const totalPrice = prices.reduce((total, price) => total + price, 0)
 
 console.log(`Preço total: ${totalPrice}`)
 
@@ -64,6 +77,10 @@ console.log(`Preço total: ${totalPrice}`)
 
 let car = { color: 'amarelo' }
 
+let car2 = car
+car2.color = 'azul'
+console.log(car.color, car2.color)
+
 /*
   06
 
@@ -73,6 +90,16 @@ let car = { color: 'amarelo' }
   - Se todos os argumentos forem passados, retorne a string 'A função foi 
     invocada com 3 argumentos'.
 */
+
+const myFunction = (a, b, c) => {
+  //if (a === undefined || b === undefined || c === undefined) {
+  const params = [ a, b, c ]
+  return params.includes(undefined) 
+    ? 'A função deve ser invocada com 3 argumentos' 
+    : 'A função foi invocada com 3 argumentos'  
+}
+
+console.log(myFunction(1,2))
 
 /*
   07
@@ -100,3 +127,27 @@ let booksBox = {
   spaces: 5,
   booksIn: 0
 }
+  
+booksBox.pushBook = function (qtd) {
+  if (this.booksIn === this.spaces) {
+    return `A caixa já está cheia`
+  } 
+
+  if (this.booksIn + qtd > this.spaces) {
+    const available = (this.spaces - this.booksIn)
+    const cabe = available > 1 ? 'cabem' : 'cabe'
+    const livro = available > 1 ? 'livros' : 'livro'
+    return `Só ${cabe} mais ${available} ${livro}`
+  } 
+  
+  this.booksIn += qtd
+  const livro = this.booksIn > 1 ? 'livros' : 'livro'
+  return `Já há ${this.booksIn} ${livro} na caixa`  
+}
+
+console.log(booksBox.pushBook(1))
+console.log(booksBox.pushBook(2))
+console.log(booksBox.pushBook(3))
+console.log(booksBox.pushBook(1))
+console.log(booksBox.pushBook(2))
+console.log(booksBox.pushBook(1))
