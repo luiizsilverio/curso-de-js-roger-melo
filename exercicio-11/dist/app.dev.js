@@ -1,13 +1,13 @@
+"use strict";
+
 /*
   01
 
   - Declare uma constante que recebe o seu nome;
   - Ela deve ter um escopo global.
 */
-
-const nome = 'Luiz'
-console.log(1, nome)
-
+var nome = 'Luiz';
+console.log(nome);
 /*
   02
 
@@ -22,13 +22,6 @@ console.log(1, nome)
   - Você sabe por que isso aconteceu?
 */
 
-const getIdade = () => {
-  let idade = 47
-  return idade
-}
-
-console.log(2, getIdade())
-console.log(2, 'variável idade tem escopo local e não global')
 /*
   03
 
@@ -47,33 +40,11 @@ console.log(2, 'variável idade tem escopo local e não global')
       "O NOME_DO_CARRO está disponível nas cores COR_01, COR_02 e COR_03".
 */
 
-const car = {
-  name: 'Clio',
-  brand: 'Renault',
-  colors: ['vermelho', 'preto', 'prata'],
-  isRunning: false,
-  run(){
-    this.isRunning = true
-    return `O ${this.name} está em movimento`
-  },
-  stop(){
-    this.isRunning = false
-    return `O ${this.name} está em parado`
-  },
-  getColorsMessage(){
-    const lastItem = this.colors[this.colors.length -1]
-    const cores = this.colors.join(', ').replace(lastItem, `e ${lastItem}`)
-    return `O ${this.name} está disponível nas cores ${cores}`
-  }
-}
-
 /*
   04
 
   - Faça o carro andar e exiba no console se ele realmente está em movimento.
 */
-
-console.log(4, car.run())
 
 /*
   05
@@ -81,15 +52,11 @@ console.log(4, car.run())
   - Faça o carro parar e exiba no console se ele realmente está parado.
 */
 
-console.log(5, car.stop())
-
 /*
   06
 
   - Exiba, no console, a mensagem com as cores do carro.
 */
-
-console.log(6, car.getColorsMessage())
 
 /*
   07
@@ -97,5 +64,3 @@ console.log(6, car.getColorsMessage())
   - Exiba, no console, a mensagem "O carro é um MARCA_DO_CARRO NOME_DO_CARRO";
   - Utilize a notação de colchetes para acessar as propriedades do carro.
 */
-
-console.log(7, `O carro é um ${car['brand']} ${car['name']}`)

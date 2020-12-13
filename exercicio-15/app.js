@@ -6,7 +6,14 @@
   - Exiba no console os elementos filhos da ul com a classe já inserida.
 */
 
+const ul = document.querySelector('.videos')
 
+const el = Array.from(ul.children)
+el.forEach(item => {
+  item.classList.add('video')
+})
+
+console.log(el)
 
 /*
   02
@@ -15,7 +22,8 @@
     e exiba-o no console;
 */
 
-
+const pai = document.querySelector('h2').parentElement
+console.log('pai de h2', pai)
 
 /*
   03
@@ -23,7 +31,9 @@
   - Descubra quem é o próximo elemento irmão do h1 e exiba-o no console;
 */
 
-
+const h1 = document.querySelector('h1')
+const prox = h1.nextElementSibling
+console.log('próximo irmão de h1', prox)
 
 /*
   04
@@ -31,7 +41,8 @@
   - Descubra quem é o irmão anterior da ul e exiba-o no console;
 */
 
-
+const prev = h1.previousElementSibling
+console.log('irmão anterior de h1', prev)
 
 /*
   05
@@ -40,7 +51,13 @@
     exibida no console.
 */
 
+const clicou = (event => {
+  console.log(event.target)
+})
 
+el.forEach(item => {
+  item.addEventListener('click', clicou)
+})
 
 /*
   06
@@ -60,9 +77,33 @@ const videos = [{
   length: '00:02:55'
 }]
 
+const button = document.querySelector('button')
+
+//primeira maneira de adicionar vídeos
+const addVideos = () => {
+  videos.forEach( item => {
+    const li = document.createElement('li')
+    li.textContent = item.name
+    ul.append(li)    
+  })
+}
+
+//segunda maneira de adicionar vídeos
+const addVideos2 = () => {
+  videos.forEach( ({name, length}) => {
+    ul.innerHTML += `<li>${name} | ${length}</li>`
+  })
+}
+
+button.addEventListener('click', addVideos2)
+
 /*
   07
 
   - Se um clique no h1 acontecer, faça com que todos os elementos dentro do body 
     sejam removidos.
 */
+
+h1.addEventListener('click', () => {
+   document.body.innerHTML = ''  
+})

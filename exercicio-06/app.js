@@ -25,6 +25,14 @@
 
 const fruits = ['morango', 'banana', 'mamão']
 
+if (fruits.includes('abacaxi')) {
+  console.log('A string "abacaxi" existe no array fruits')
+} else if (fruits.includes('pera')) {
+  console.log('A string "pera" existe no array fruits')
+} else {
+  console.log('Nem pera nem abacaxi exisem no array "fruits"')
+}
+
 /*
   02
 
@@ -37,6 +45,17 @@ const fruits = ['morango', 'banana', 'mamão']
   Obs.: tanto a expressão do lado esquerdo quanto a do lado direito do operador  
   lógico precisam ter a constante especificada. Exemplo: hour > x && hour < y.
 */
+
+const horaAtual = 21
+
+if (horaAtual >= 6 && horaAtual < 12){
+  console.warn('Bom dia!')
+} 
+else if (horaAtual >= 12 && horaAtual < 18){
+  console.warn('Boa tarde!')
+}
+else if (horaAtual >= 18)
+  console.log('Boa noite!')
 
 /*
   03
@@ -52,6 +71,16 @@ const fruits = ['morango', 'banana', 'mamão']
     também está funcionando.
 */
 
+const idade = 47
+let frase
+
+if (idade <= 7 || idade >= 65)
+  frase = 'Para você, a entrada é grátis!'
+else
+  frase = 'A entrada é R$ 30,00.'
+
+console.log(frase)
+
 /*
   04
 
@@ -62,6 +91,14 @@ const fruits = ['morango', 'banana', 'mamão']
 */
 
 const numbers = [7, 92, 34, 46, 90, 25, 11, 3, 89, 76, 99]
+let lista = []
+
+for(i = 0; i < numbers.length; i++){
+  if(numbers[i] >= 11 && numbers[i] <= 90)
+    lista.push(numbers[i])
+}
+
+console.log(lista)
 
 /*
   05
@@ -77,6 +114,20 @@ const numbers = [7, 92, 34, 46, 90, 25, 11, 3, 89, 76, 99]
 */
 
 const crazyArray = [true, 869, 'oi', 71, false, 83, '35', true, 397, 'js', false]
+let totB = 0, totN = 0, totS = 0
+
+for(i=0; i < crazyArray.length; i++){
+  if (typeof crazyArray[i] === 'boolean')
+    totB++
+  else 
+  if (typeof crazyArray[i] === 'number')
+    totN++
+  else
+  if (typeof crazyArray[i] === 'string')
+    totS++
+}
+
+console.log(`O crazyArray tem ${totB} booleans, ${totN} números e ${totS} strings.`)
 
 /*
   06
@@ -96,3 +147,17 @@ const crazyArray = [true, 869, 'oi', 71, false, 83, '35', true, 397, 'js', false
 */
 
 const randomNumbers = [73, 4, 67, 10, 31, 58]
+let impares = []
+let pares = []
+
+for(i = 0; i < randomNumbers.length; i++){
+  const item = randomNumbers[i]
+  if (item % 2 === 0)
+    pares.push(item)
+  else
+    impares.push(item)
+}
+
+let texto  = ''
+texto  = `Números ímpares: ${impares.join(', ')}. Números pares: ${pares.join(', ')}`
+console.log(texto)

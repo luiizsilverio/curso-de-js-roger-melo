@@ -11,11 +11,15 @@
 
   - Converta a função abaixo em uma arrow function e utilize-a para exibir um  
     valor no console.
-*/
 
 function convertToString (value) {
   return String(value)
 }
+*/
+
+const convertToString = value => String(value)
+
+console.log(250)
 
 /*
   02
@@ -23,6 +27,10 @@ function convertToString (value) {
   - Crie uma função que retorne a quantidade de caracteres que uma string  
     recebida por parâmetro possui.
 */
+
+const qtdCaracteres = texto => texto.length
+
+console.log(qtdCaracteres('Luiz Silvério'))
 
 /*
   03
@@ -34,12 +42,21 @@ function convertToString (value) {
   "CHOCOTONE E OVO DE PÁSCOA JUNTOS NO MERCADO EM PLENO FEVEREIRO"
 */
 
+const caixaBaixa = texto => texto.toLowerCase()
+const frase = 'CHOCOTONE E OVO DE PÁSCOA JUNTOS NO MERCADO EM PLENO FEVEREIRO'
+
+console.log(caixaBaixa(frase))
+
 /*
   04
 
   - Crie uma função que recebe 2 parâmetros: um caractere e uma string;
   - Ao ser invocada, a função deve retornar o index do caractere na string.
 */
+
+const contemLetra = (letra, texto = '') => texto.indexOf(letra)
+
+console.log(contemLetra('T', 'CHOCOTONE'))
 
 /*
   05
@@ -48,12 +65,21 @@ function convertToString (value) {
     passado por argumento existe no array (também passado por argumento).
 */
 
+const contemItem = (item, lista = []) => lista.includes(item)
+
+console.log(contemItem('L', ['C', 4, true, 'Ana']))
+
 /*
   06
 
   - Crie uma função que retorna a concatenação de 2 arrays, passados como  
     argumentos em sua invocação;
 */
+
+const JuntaArrays = (lista1 = [], lista2 = []) => lista1.concat(lista2)
+let lista = ['Ana', 'Lara', 'Maria']
+lista = JuntaArrays(lista, ['Luiz', 'Fábio', 'João'])
+console.log(lista)
 
 /*
   07
@@ -62,12 +88,24 @@ function convertToString (value) {
     mas com o último item removido.
 */
 
+//const RemoveUlt = (lista = []) => lista.slice(0, lista.length -1)
+const RemoveUlt = (lista = []) => {
+  lista.pop()
+  return lista
+}
+
+console.log(RemoveUlt(lista))
+
 /*
   08
 
   - Crie uma função que retorna se o valor passado como argumento em sua  
     invocação é null.
 */
+
+const isNulo = valor => valor === null
+let valor = null
+console.log(isNulo(valor))
 
 /*
   09
@@ -80,6 +118,13 @@ function convertToString (value) {
     foi exibido.
 */
 
+const mostraLog = nome => console.log(nome)
+const mostraNome = callback => { 
+  callback('Luiz') 
+}
+
+mostraNome(mostraLog)
+
 /*
   10
 
@@ -90,6 +135,13 @@ function convertToString (value) {
   - Faça com que a invocação da função descrita no 1º item deste exercício (10)  
     resulte no triplo de 33.
 */
+
+const triplo = valor => valor * 3
+const mostraTriplo = (valor, callback) => {
+    return callback(valor)
+}
+
+console.log(mostraTriplo(33,triplo))
 
 /*
   11
@@ -102,6 +154,10 @@ function convertToString (value) {
 
 const numbers = [1, 2, 3]
 
+numbers.forEach( (item, indice, lista) => {
+  console.log(`O ${indice + 1}º item do array [${lista.join(', ')}] é ${item}`)
+})
+
 /*
   12
 
@@ -113,9 +169,17 @@ const numbers = [1, 2, 3]
 const letters = ['v', 'e', 'p']
 let lettersCopy = []
 
+/*
 for (let i = 0; i < letters.length; i++) {
   lettersCopy.push(letters[i])
 }
+*/
+
+letters.forEach( item => {
+  lettersCopy.push(item)
+})
+
+console.log(lettersCopy)
 
 /*
   13
@@ -145,7 +209,7 @@ const review = [
 ]
 
 let paragraphs = ''
-
+review.forEach( item => paragraphs += `<p>${item}</p>` )
 section.innerHTML = paragraphs
 
 /*
@@ -168,3 +232,25 @@ section.innerHTML = paragraphs
     pelo restante da quantidade de pessoas que curtiram o post (além das duas  
     pessoas já mencionadas no início da mensagem).
 */
+
+const curtidas = (lista = []) => {
+  const qtd = lista.length
+  switch (qtd){
+    case 0:
+      return 'Ninguém curtiu isso'
+      //break  -> o return elimina a necessidade do break
+    case 1:
+      return `'${lista[0]} curtiu isso`
+      //break
+    case 2:
+      return `'${lista[0]} e ${lista[1]} curtiram isso`
+      //break
+    case 3:
+      return `'${lista[0]}, ${lista[1]} e ${lista[2]} curtiram isso`
+      //break
+    default:
+      return `'${lista[0]}, ${lista[1]} e mais ${qtd - 2} pessoas curtiram isso`
+  }
+}
+
+console.log(curtidas(lista))

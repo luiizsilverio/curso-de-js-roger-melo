@@ -10,3 +10,13 @@
 .link {
   color: lightblue;
 }
+
+/* muda as cores dos itens da lista através do CSS
+li:nth-child(odd){
+  color: pink;
+}
+
+li:nth-child(even){
+  color: lightblue;
+}
+*/

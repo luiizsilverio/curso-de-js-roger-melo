@@ -21,6 +21,43 @@
   Dica: pesquise pelo método "insertAdjacentElement", no MDN;
 */
 
+const user = document.getElementById('username')
+const p_user = document.createElement('p')
+const p_submit = document.createElement('p')
+
+const regex = /^[a-zA-z]{6,}$/  
+const $valida = input => regex.test(input)
+
+user.insertAdjacentElement('afterend', p_user)
+
+const defineParagrafo = parInfo => {
+  const { paragrafo, classe, texto } = parInfo
+  paragrafo.textContent = texto
+  paragrafo.setAttribute('class', classe)      
+}
+
+const validaInput = function(ev) {
+ 
+  p_submit.textContent = ''
+
+  if (!$valida(ev.target.value)){
+    defineParagrafo({
+      paragrafo: p_user, 
+      classe: "username-help-feedback",
+      texto: "O valor deve conter no mínimo 6 caracteres, com apenas letras maiúsculas e/ou minúsculas"
+    })
+    return
+  }
+  
+  defineParagrafo({
+    paragrafo: p_user, 
+    classe: "username-success-feedback", 
+    texto: "Username válido =)"
+  })
+}
+
+user.addEventListener('input', validaInput)
+
 /*
   02
 
@@ -32,6 +69,32 @@
   - Use as classes disponíveis no arquivo style.css para colorir o parágrafo;
   - Não insira o parágrafo manualmente no index.html.
 */
+
+const form = document.querySelector('form')
+
+form.insertAdjacentElement('beforeend', p_submit)
+
+validaForm = function(ev) {
+
+  ev.preventDefault()
+  
+  if(!$valida(user.value)){
+    defineParagrafo({
+      paragrafo: p_submit, 
+      classe: "submit-help-feedback", 
+      texto: "Por favor, insira um username válido"
+    })
+    return    
+  }
+  
+  defineParagrafo({
+    paragrafo: p_submit, 
+    classe: "submit-success-feedback", 
+    texto: "Dados enviados =)"
+  })
+}
+
+form.addEventListener('submit', validaForm)
 
 /*
   03
@@ -53,3 +116,16 @@
   Spoiler alert: este tipo de exercício será frequente em etapas mais avançadas  
   do curso, onde falaremos sobre TDD. Vá se aquecendo =D
 */
+
+const contem = (lista, myFunc) => {
+ 
+  for (let i = 0; i < lista.length; i++) {
+    if (myFunc(lista[i])) {
+      return true
+    }
+  }
+  return false
+}
+
+console.log(contem([1, 2, 3], item => item > 2))
+console.log(contem([1, 3, 5], item => item === 0))

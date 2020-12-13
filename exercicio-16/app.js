@@ -7,16 +7,29 @@
 
 const div = document.querySelector('div')
 const elementsInsideDiv = Array.from(div.children)
+const h2 = document.getElementById('mensagem')
 
+/*
 elementsInsideDiv.forEach(element => {
-  element.addEventListener('click', () => {
-    console.log('Clicou no filho da div.')
+  element.addEventListener('click', event => {
+    const msg = `Clicou no ${event.currentTarget.tagName.toLowerCase()}, filho da div.`
+    //console.log(msg)
+    h2.innerText = msg
+    event.stopPropagation()
   })
 })
+*/
 
-div.addEventListener('click', () => {
-  console.log('Clicou na div.')
-})
+showClickMessage = event => {
+  const tag = event.target.tagName.toLowerCase()
+  if (tag === 'div') {
+    h2.textContent = 'Clicou na div.'
+  } else {
+    h2.textContent = `Clicou no ${tag}, filho da div.`
+  }
+}
+
+div.addEventListener('click', showClickMessage)
 
 /*
   02
@@ -41,6 +54,10 @@ div.addEventListener('click', () => {
     seja exibida no console.
 */
 
+  h2.addEventListener('copy', () => {
+    console.log('Texto copiado')
+  })
+
 /*
   05
 
@@ -49,12 +66,22 @@ div.addEventListener('click', () => {
     "Eixo X: COORDENADA_EIXO_X | Eixo Y: COORDENADA_EIXO_Y".
 */
 
+const egg = document.querySelector('.egg')
+egg.addEventListener('mousemove', function({offsetX, offsetY}){
+  this.innerText = `Eixo X: ${offsetX} | Eixo Y: ${offsetY}`
+})
+  
 /*
   06
 
   - Modifique a cor do ovo para "lightgoldenrodyellow" quando o botão for 
     clicado.
 */
+
+const btn = document.querySelector('button')
+btn.addEventListener('click', () => {
+  egg.style.background = 'lightgoldenrodyellow'
+})
 
 /*
   07
@@ -76,3 +103,8 @@ const people = [
   { id: 8, name: 'Matheus Manucci', profession: 'Piloto' },
   { id: 9, name: 'Hamilton Silva', profession: 'Advogado' }
 ]
+
+const front = people.some( ({profession}) => profession === "Front-end developer")
+if (front) {
+  console.log("O array people contém, no mínimo, um(a) Front-end developer.")
+}

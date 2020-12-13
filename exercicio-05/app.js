@@ -21,7 +21,11 @@
     5
 */
 
-
+let i = 0
+while (i <= 5){
+  console.log('while', i)
+  i++
+}
 
 /*
   02 - Comente a declaração da let e o loop acima e:
@@ -29,7 +33,9 @@
   - Utilizando um for loop, faça o mesmo que foi pedido no exercício 01.
 */
 
-
+for(i=0; i<=5; i++){
+  console.log('for', i)
+}
 
 /*
   03 - Comente o loop acima e:
@@ -42,7 +48,9 @@
   "Esta é a Xª vez que esta frase é exibida no console."
 */
 
-
+for(i=1; i<=10; i++){
+  console.log(`Esta é a ${i}ª vez que esta frase é exibida no console.`)
+}
 
 /*
   04 - Comente o loop acima e:
@@ -55,6 +63,11 @@
 */
 
 const cities = ['São Paulo', 'Rio de Janeiro', 'Minas Gerais']
+let upperCaseCities = []
+for(i=0; i< cities.length; i++){
+  upperCaseCities.push(cities[i].toUpperCase())
+}
+console.log(upperCaseCities)
 
 /*
   05 - Comente o console.log acima e:
@@ -66,6 +79,11 @@ const cities = ['São Paulo', 'Rio de Janeiro', 'Minas Gerais']
 */
 
 const names = ['João Grilo', 'Chicó', 'Rosinha']
+let saida = ''
+for(i=0; i < names.length; i++){
+  saida += `<li>${names[i]}</li>`
+}
+console.log(saida)
 
 /*
   06 - Comente o console.log acima e:
@@ -77,6 +95,11 @@ const names = ['João Grilo', 'Chicó', 'Rosinha']
 */
 
 const numbers = ['91', '5', '30', '97', '83', '31']
+let soma = 0
+for(i=0; i < numbers.length; i++){
+  soma += Number(numbers[i])
+}
+console.warn(soma === 337)
 
 /*
   07 - Comente o console.log acima.
@@ -102,3 +125,11 @@ const arrays = [
   [8, 32, 16],
   [2, 8, 4]
 ]
+
+let tot = 0
+for(i=0; i < arrays.length; i++){
+  for(j=0; j < arrays[i].length; j++){
+    tot += arrays[i][j]
+  }
+  console.log('soma =', tot)
+}
