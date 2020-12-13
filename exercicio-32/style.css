@@ -8,3 +8,10 @@ img {
   width: 100%;
   max-width: 100%;
 }
+
+.out {
+  display: flex;
+  margin: 15px 2%;
+  flex-wrap: wrap;
+  align-items: center;  
+}

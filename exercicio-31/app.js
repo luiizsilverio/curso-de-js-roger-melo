@@ -8,6 +8,19 @@
     do GitHub.
 */
 
+const getUser = async url => {
+  const response = await fetch(url)
+  return response.json()  
+}
+
+const showUser = async userName => {
+  const url = `https://api.github.com/users/${userName}`
+  const user = await getUser(url)
+  console.log(user)
+}
+
+showUser('luiizsilverio')
+
 /*
   02
 
@@ -17,6 +30,10 @@
 */
 
 const numbers = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+
+const arrayNum = numbers.filter(number => number % 2 === 0 || number % 3 === 0)
+
+console.log(arrayNum)
 
 /*
   03
@@ -31,6 +48,12 @@ const numbers = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
     - Natália => "PNaPtáPlia";
     - Rafaela => "PRaPfaPePla".
 */
+
+const silabas = ['Lu', 'iz', 'Sil', 'vé', 'rio', 'de', 'O', 'li', 'vei', 'ra']
+
+const nome = `P${silabas.join('P')}`
+
+console.log(nome)
 
 /*
   04
@@ -47,6 +70,17 @@ const numbers = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
   Dica: pesquise pelo método split.
 */
 
+const myName = 'Luiz'
+
+const letras = myName.split('')
+
+const texto = letras.reduce((accum, letra, index) => {
+  accum = `${accum}"${letra}" é a ${index + 1}ª letra do meu nome.\n`
+  return accum
+}, '')
+
+console.log(texto)
+
 /*
   05
 
@@ -59,6 +93,17 @@ const numbers = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
 
   Dica: pesquise pelo método Object.keys().
 */
+
+const aluno = {
+  name: 'Carl',
+  lastname: 'Sagan',
+  age: 42,
+  blogs: ["Treinaweb", "Danki"],
+  login() {    
+  }
+}
+
+console.log(Object.keys(aluno))
 
 /*
   06
@@ -74,6 +119,12 @@ const numbers = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
 */
 
 const scores = [100, 90, 85, 100, 60, 85, 100, 90, 55, 75, 60]
+
+const ocorrencias = (array = [], valor) => 
+  array.filter(item => item === valor).length  
+
+console.log(85, ocorrencias(scores, 85))
+console.log(100, ocorrencias(scores, 100))
 
 /*
   07
@@ -98,3 +149,20 @@ const scores = [100, 90, 85, 100, 60, 85, 100, 90, 55, 75, 60]
   Dica: lembre-se que o método filter inclui o item em questão no novo array 
   que está sendo gerado **apenas** se a função retorna um valor truthy.
 */
+
+const filtra = (array, callback) => {
+  let lista = []
+  array.forEach((item, index, array) => {
+    if (callback(item, index, array)) {
+      lista.push(item)
+    }
+  })
+  return lista
+}
+
+console.log(filtra([1, 2, 3], item => item))
+console.log(filtra([0, 1, 2], item => item)) 
+console.log(filtra([1, 2, 3], item => item < 2)) 
+console.log(filtra([1, 2, 3, 5], (item, index) => item === index + 1)) 
+console.log(filtra([1, 2, 3, 2, 1, 5], (item, index, array) =>
+  index === array.indexOf(item))) 

@@ -20,3 +20,59 @@
       listados na documentação: https://developers.giphy.com/docs/api/endpoint#search
   - Ignore os avisos no console. Para limpá-lo, pressione "ctrl + L".
 */
+
+// API Key = XYzCsv3w8PRuo5i2rJG8Fh2Zou2wDJNX
+// Nome do App = buscaGIF
+// email = luiiz.silverio@gmail.com
+// username = luiiz-silverio
+
+const form = document.querySelector('form')
+const input = document.getElementById('search')
+const out = document.querySelector('.out')
+
+const apiKey = 'XYzCsv3w8PRuo5i2rJG8Fh2Zou2wDJNX'
+
+const getUrl = (texto) => 
+  `https://api.giphy.com/v1/gifs/search?api_key=${apiKey}&limit=1&q=${texto}`
+
+const generateIMG = (src, alt) => {
+  const img = document.createElement('img')         
+
+  img.setAttribute('src', src)
+  img.setAttribute('alt', alt)  
+  out.insertAdjacentElement('afterbegin', img)
+}
+
+const buscaGIF = async texto => {
+  const url = getUrl(texto)
+  
+  try {
+     const response = await fetch(url)
+     if (!response.ok) {
+       throw new Error('Não foi possível obter os dados')
+     }
+
+     const gif = await response.json()
+     if (gif.data.length === 0) {
+       throw new Error('GIF não encontrado')
+     }
+
+     generateIMG(gif.data[0].images.downsized.url, gif.data[0].title)
+
+  } catch (error) {
+    alert(`Erro: ${error.message}`)
+  }  
+}
+
+form.addEventListener('submit', (event) => {
+  event.preventDefault()
+
+  const inputValue = event.target.search.value
+  if (!inputValue) {
+    return
+  }
+
+  buscaGIF(inputValue)
+  event.target.reset()
+})
+
