@@ -12,7 +12,7 @@ const numbers = [50, 100, 50]
 
 const sum = (x, y, z) => x + y + z
 
-console.log(sum(numbers))
+console.log(sum(...numbers))
 
 /*
   02
@@ -22,6 +22,21 @@ console.log(sum(numbers))
   - Utilizando (também) o spread operator, exiba no console o seu nome com 
     apenas a primeira letra maiúscula.
 */
+
+const myName = 'luiz'
+
+// Outras sugestões de solução:
+// Sugestão 1:
+// console.log(myName[0].toUpperCase() + myName.slice(1))
+// Sugestão 2:
+// console.log([myName[0].toUpperCase(), ..name.slice(1)].join(''))
+
+const capitalize = string => [...string]
+  .map((letra, index) => 
+    index == 0 ? letra.toUpperCase() : letra
+  ).join('')
+
+console.log(capitalize(myName))
 
 /*
   03
@@ -34,36 +49,47 @@ console.log(sum(numbers))
 
 const randomNumber = Math.round(Math.random() * 100)
 
-const obj = {
+let obj = {
   a: 1,
-  b: 2
+  b: 2,
+  ...(randomNumber > 50 ? { c: 3 } : { d: 4 })
 }
 
-console.log(obj)
+console.log(randomNumber, obj)
 
 /*
   04
 
   - Descubra o que o código abaixo está fazendo e refatore-o para que o objeto 
     criado permaneça intacto.
+
+  const h = w => {
+    w.d = 3
+  }
+
+  const q = f => {
+    h(f)
+  }
+
+  const i = b => {
+    q(b)
+  }
+
+  const v = { k: 't' }
+
+  i(v)
+  console.log(v)
 */
 
-const h = w => {
-  w.d = 3
-}
+const h3 = obj => ({ ...obj, d: 3 })
 
-const q = f => {
-  h(f)
-}
+const q2 = obj => h3(obj)
 
-const i = b => {
-  q(b)
-}
+const i1 = obj => q2(obj)
 
 const v = { k: 't' }
 
-i(v)
-console.log(v)
+console.log(v, i1(v))
 
 /*
   05
@@ -96,6 +122,12 @@ const timestamps = [
   }
 ]
 
+const newObj = timestamps.reduce((acc, item) => (
+  {...acc, [item.date] : item.value }
+), {})
+  
+console.log(newObj)
+  
 /*
   06
 
@@ -118,6 +150,20 @@ const timestamps = [
 
 let accumulator = 0
 const oddNumbers = [51, 97, 65, 23]
+
+const forEach = (array, func) => {
+  for (let index = 0; index < array.length; index++) {
+    const item = array[index]
+    func(item, index, array)
+  }
+}
+
+forEach(oddNumbers, (item, index, array) => {
+  console.log(`${item} é o ${index + 1}º item do array [${array.join(', ')}]`)
+  accumulator += item
+})
+
+console.log(accumulator)
 
 /*
   07
@@ -147,3 +193,29 @@ const oddNumbers = [51, 97, 65, 23]
     3 No passo 3.4, se o slide exibido atualmente não corresponder ao index do 
       1º slide, o slide anterior deve ser exibido.
 */
+
+const items = document.querySelectorAll('[data-js=carousel__item]')
+const btnPrev = document.querySelector('[data-js=carousel__button--prev]')
+const btnProx = document.querySelector('[data-js=carousel__button--next]')
+
+let itemVisivel = 0
+
+function showVisibleItem() {
+  items.forEach((item, index) => {        
+    item.classList.remove('carousel__item--visible')    
+  })
+
+  items[itemVisivel].classList.add('carousel__item--visible')
+}
+
+btnPrev.addEventListener('click', event => {
+  itemVisivel = itemVisivel <= 0 ? items.length -1 : itemVisivel - 1
+  
+  showVisibleItem()  
+})
+
+btnProx.addEventListener('click', event => {
+  itemVisivel = itemVisivel >= items.length -1 ? 0 : itemVisivel + 1
+  
+  showVisibleItem()
+})
