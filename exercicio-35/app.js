@@ -5,6 +5,17 @@
     e retorna o valor da key parseado para objeto javascript.
 */
 
+const getObjectFromLocalStorage = keyName => {
+  const keyValue = localStorage.getItem(keyName)  
+  return JSON.parse(keyValue)
+}
+
+const myObj = { x: 'x', y: 'y' }
+const myObjAsJSON = JSON.stringify(myObj)
+
+localStorage.setItem('myKey', myObjAsJSON)
+console.log(getObjectFromLocalStorage('myKey'))
+
 /*
   02
 
@@ -21,7 +32,8 @@
 const input = document.querySelector('[data-js="input"]')
 
 input.addEventListener('input', event => {
-  console.log(event.target.value)
+  const valor = event.target.valueAsNumber
+  console.log(valor)
 })
 
 /*
@@ -39,28 +51,32 @@ input.addEventListener('input', event => {
     retornar 60 e a segunda invocação, 10.
 */
 
-function add100 (num) {
-  return num + 100
+const add100 = (num) => num + 100
+
+const divByFive = (num) => num / 5
+
+const multiplyByThree = (num) => num * 3
+
+const multiplyFive = (num) => num * 5
+
+const addTen = (num) => num + 10
+
+const combineOperations = (num, array = []) => {
+   /*
+   let valor = num
+   for (func of array) {
+     valor = func(valor)
+   }
+   */
+   const valor = array.reduce((acc, func) => {
+      return func(acc)
+   }, num)
+
+   return valor
 }
 
-function divByFive (num) {
-  return num / 5
-}
-
-function multiplyByThree (num) {
-  return num * 3
-}
-
-function multiplyFive (num) {
-  return num * 5
-}
-
-function addTen (num) {
-  return num + 10
-}
-
-// console.log(combineOperations(0, [add100, divByFive, multiplyByThree]))
-// console.log(combineOperations(0, [divByFive, multiplyFive, addTen]))
+console.log(combineOperations(0, [add100, divByFive, multiplyByThree]))
+console.log(combineOperations(0, [divByFive, multiplyFive, addTen]))
 
 /*
   04
@@ -101,7 +117,9 @@ const searchAlbum = {
   genre: 'Rock'
 }
 
-if (albums.includes(searchAlbum)) {
+//if (albums.includes(searchAlbum)) {
+//if (albums.find(({ id }) => id === searchAlbum.id)) {
+if (albums.some(album => album.id === searchAlbum.id)) {
   console.log(`${JSON.stringify(searchAlbum)} existe no array albums.`)
 }
 
@@ -122,6 +140,9 @@ const obj = {
   prop8: { a: 'x', b: 'y' },
 }
 
+const copia = JSON.parse(JSON.stringify(obj))
+console.log(copia)
+
 /*
   06
 
@@ -132,6 +153,26 @@ const obj = {
 
   Dica: pesquise por Object.entries.
 */
+
+const criaElemento = (nome, atributos) => {
+  const elem = document.createElement(nome);
+  const arrayAttr = Object.entries(atributos);
+  
+  arrayAttr.forEach(([key, value]) =>   
+    elem.setAttribute(key, value))
+  
+  return elem
+}
+
+const root = document.getElementById('root');
+const atributos = {
+  type: "text",
+  placeholder: "digite aqui",
+  maxlength: "10"
+}
+
+const elem = criaElemento('input', atributos)
+root.insertAdjacentElement('afterbegin', elem)
 
 /*
   07
